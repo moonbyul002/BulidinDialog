@@ -30,6 +30,7 @@ private:
     QPushButton *pagePushBtn;
     QPushButton *progressPushBtn;
     QPushButton *printPushBtn;
+    QPushButton *colorwordPushBtn;
 private slots:
     void doPushBtn();
 };
