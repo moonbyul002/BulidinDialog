@@ -3,6 +3,7 @@
 #include "ui_cbuiltindlg.h"
 #include<QGridLayout>
 #include<QtWidgets>
+
 cbuiltindlg::cbuiltindlg(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::cbuiltindlg)
@@ -45,52 +46,24 @@ void cbuiltindlg::doPushBtn(){
     {
         QPalette palette=displayTextEdit->palette();
         const QColor& color=
-            QColorDialog::getColor(palette.color (QPalette::Base),
-                                   this, QStringLiteral("設定背景顏色"));
+            QColorDialog::getColor(palette.color (QPalette::Text),
+                                   this,tr("設定背景顏色"));
         if (color.isValid())
         {
-            palette.setColor(QPalette:: Base, color);
+            palette.setColor(QPalette:: Text, color);
             displayTextEdit->setPalette (palette);
         }
     }
-    if (btn == errorPushBtn)
-    {
-        QErrorMessage box (this);
-        box.setWindowTitle (QStringLiteral("錯誤訊息盒"));
-        box.showMessage (QStringLiteral("錯誤訊息盒實例xx:"));
-        box.showMessage (QStringLiteral("錯誤訊息盒實例yy:"));
-        box.showMessage (QStringLiteral("錯誤訊息盒實例zz:"));
-        box.exec();
-    }
+
     if (btn == filePushBtn)
     {
-        QString fileName = QFileDialog::getOpenFileName (this,
-                        QStringLiteral("打開檔案"),".", QStringLiteral("任何檔案(*.*)"
-                                                                     "L"";;文字檔(*.txt)"
-                                                                    "L"";;XML檔(*.xml.)"));
+        QString fileName =QFileDialog::getOpenFileName (this,tr("打開檔案"),".",
+                                                        tr("任何檔案(*.*)"
+                                                           ";;文字檔(*.txt)"
+                                                           ";;XML檔(*.xml.)"));
         displayTextEdit->setText(fileName);
     }
-    if (btn == fontPushBtn)
-    {
-        bool ok;
-        const QFont& font = QFontDialog::getFont(&ok,
-                                               displayTextEdit->font(),
-                                               this,
-                                               QStringLiteral("字體對話盒"));
-        if (ok) displayTextEdit->setFont(font);
-    }
-    if (btn = inputPushBtn)
-    {
-        bool ok;
-        QString text = QInputDialog::getText(this,
-                                            QStringLiteral("輸入對話盒"),
-                                            QStringLiteral("輸入文字"),
-                                            QLineEdit::Normal,
-                                            QDir::home().dirName(),
-                                            &ok
-                                            );
-    if (ok && !text.isEmpty()) displayTextEdit->setText(text);
-    }
+
 }
 cbuiltindlg::~cbuiltindlg()
 {
