@@ -28,9 +28,40 @@ cbuiltindlg::cbuiltindlg(QWidget *parent)
     setLayout (gridLayout);
     setWindowTitle (QStringLiteral("內建對話盒展示"));
     resize (400,300);
+    connect (colorPushBtn, SIGNAL (clicked()), this, SLOT (doPushBtn()));
+    connect (errorPushBtn, SIGNAL (clicked()),this, SLOT (doPushBt()));
+    connect (filePushBtn, SIGNAL(clicked()), this, SLOT (doPushBtn()));
+    connect (fontPushBtn, SIGNAL (clicked()), this, SLOT (doPushBtn()));
+    connect (inputPushBtn, SIGNAL (clicked()),this, SLOT (doPushBtn()));
+    connect (progressPushBtn, SIGNAL (clicked()),this, SLOT (doPushBtn()));
+    connect (pagePushBtn, SIGNAL (clicked()), this, SLOT (doPushBtn()));
+    connect (printPushBtn, SIGNAL (clicked()),this, SLOT (doPushBtn()));
     ui->setupUi(this);
 }
-
+void cbuiltindlg::doPushBtn(){
+    QPushButton* btn =qobject_cast<QPushButton*>(sender());
+    if (btn == colorPushBtn)
+    {
+        QPalette palette=displayTextEdit->palette();
+        const QColor& color=
+            QColorDialog::getColor(palette.color (QPalette::Base),
+                                   this, QStringLiteral("設定背景顏色"));
+        if (color.isValid())
+        {
+            palette.setColor(QPalette:: Base, color);
+            displayTextEdit->setPalette (palette);
+        }
+    }
+if (btn == errorPushBtn)
+{
+QErrorMessage box (this);
+box.setWindowTitle (QStringLiteral("錯誤訊息盒"));
+box.showMessage (QStringLiteral("錯誤訊息盒實例xx:"));
+box.showMessage (QStringLiteral("錯誤訊息盒實例yy:"));
+box.showMessage (QStringLiteral("錯誤訊息盒實例zz:"));
+box.exec();
+}
+}
 cbuiltindlg::~cbuiltindlg()
 {
     delete ui;
